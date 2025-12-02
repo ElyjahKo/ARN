@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additionals>
+    <!-- Affichage des détecteurs de véhicules -->
+    <inductionLoop id="detector1" lane="NtoC_0" pos="50" freq="1" file="detectors.out" friendlyPos="true"/>
+    <inductionLoop id="detector2" lane="StoC_0" pos="50" freq="1" file="detectors.out" friendlyPos="true"/>
+    <inductionLoop id="detector3" lane="EtoC_0" pos="50" freq="1" file="detectors.out" friendlyPos="true"/>
+    <inductionLoop id="detector4" lane="WtoC_0" pos="50" freq="1" file="detectors.out" friendlyPos="true"/>
+    
+    <!-- Affichage des noms de rues -->
+    <edgeData id="edgeData" file="edge_data.xml" freq="1"/>
+    
+    <!-- Affichage des statistiques -->
+    <edgeData id="edgeStats" type="emissions" file="edge_emissions.xml" freq="10"/>
+</additionals>

@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<routes>
-    <!-- Types de véhicules -->
-    <vType id="car" accel="2" decel="4.5" length="5" maxSpeed="14" shape="passenger"/>
-    <vType id="emergency" accel="3" decel="6" length="5" maxSpeed="20" shape="emergency"/>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+    <!-- Vehicle Types -->
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5.0" minGap="2.5" maxSpeed="13.89" guiShape="passenger" color="1,1,0"/>
+    <vType id="bus" accel="1.2" decel="4.5" sigma="0.5" length="12.0" minGap="3.0" maxSpeed="12.0" guiShape="bus" color="0,1,0"/>
+    <vType id="ambulance" accel="3.0" decel="5.0" sigma="0.3" length="6.0" minGap="2.0" maxSpeed="20.0" guiShape="emergency" color="1,0,0"/>
 
     <!-- Routes -->
     <route id="north_south" edges="NtoC CtoS"/>
     <route id="south_north" edges="StoC CtoN"/>
-    <route id="east_west"  edges="EtoC CtoW"/>
-    <route id="west_east"  edges="WtoC CtoE"/>
+    <route id="east_west" edges="EtoC CtoW"/>
+    <route id="west_east" edges="WtoC CtoE"/>
 
-    <!-- Flots de véhicules -->
-    <flow id="f1" route="north_south" type="car" begin="0" end="3600" vehsPerHour="500"/>
-    <flow id="f2" route="south_north" type="car" begin="0" end="3600" vehsPerHour="500"/>
-    <flow id="f3" route="east_west"  type="car" begin="0" end="3600" vehsPerHour="500"/>
-    <flow id="f4" route="west_east"  type="car" begin="0" end="3600" vehsPerHour="500"/>
+    <!-- Traffic Flows -->
+    <flow id="flow_ns_cars" type="car" route="north_south" begin="0" end="3600" vehsPerHour="300"/>
+    <flow id="flow_sn_cars" type="car" route="south_north" begin="0" end="3600" vehsPerHour="300"/>
+    <flow id="flow_ew_cars" type="car" route="east_west" begin="0" end="3600" vehsPerHour="300"/>
+    <flow id="flow_we_cars" type="car" route="west_east" begin="0" end="3600" vehsPerHour="300"/>
 
-    <!-- Exemple véhicule d'urgence -->
-    <vehicle id="ambulance1" type="emergency" route="north_south" depart="10"/>
+    <!-- Buses -->
+    <flow id="flow_ns_bus" type="bus" route="north_south" begin="0" end="3600" vehsPerHour="30"/>
+    <flow id="flow_ew_bus" type="bus" route="east_west" begin="0" end="3600" vehsPerHour="30"/>
+
+    <!-- Emergency Vehicles -->
+    <vehicle id="ambulance_1" type="ambulance" route="south_north" depart="10" color="1,0,0"/>
+    <vehicle id="ambulance_2" type="ambulance" route="east_west" depart="150" color="1,0,0"/>
+    <vehicle id="ambulance_3" type="ambulance" route="north_south" depart="300" color="1,0,0"/>
+    
 </routes>

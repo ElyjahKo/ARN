@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-500.00,-500.00,500.00,500.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!" />
+
+    <!-- Junctions -->
+    <junction id="center" type="traffic_light" x="0.00" y="0.00" />
+    <junction id="north" type="dead_end" x="0.00" y="300.00" />
+    <junction id="south" type="dead_end" x="0.00" y="-300.00" />
+    <junction id="east" type="dead_end" x="300.00" y="0.00" />
+    <junction id="west" type="dead_end" x="-300.00" y="0.00" />
+
+    <!-- Edges -->
+    <edge id="NtoC" from="north" to="center" priority="1">
+        <lane id="NtoC_0" index="0" speed="13.89" length="300.00" shape="0,300 0,0" />
+    </edge>
+    
+    <edge id="CtoN" from="center" to="north" priority="1">
+        <lane id="CtoN_0" index="0" speed="13.89" length="300.00" shape="0,0 0,300" />
+    </edge>
+    
+    <edge id="StoC" from="south" to="center" priority="1">
+        <lane id="StoC_0" index="0" speed="13.89" length="300.00" shape="0,-300 0,0" />
+    </edge>
+    
+    <edge id="CtoS" from="center" to="south" priority="1">
+        <lane id="CtoS_0" index="0" speed="13.89" length="300.00" shape="0,0 0,-300" />
+    </edge>
+    
+    <edge id="EtoC" from="east" to="center" priority="1">
+        <lane id="EtoC_0" index="0" speed="13.89" length="300.00" shape="300,0 0,0" />
+    </edge>
+    
+    <edge id="CtoE" from="center" to="east" priority="1">
+        <lane id="CtoE_0" index="0" speed="13.89" length="300.00" shape="0,0 300,0" />
+    </edge>
+    
+    <edge id="WtoC" from="west" to="center" priority="1">
+        <lane id="WtoC_0" index="0" speed="13.89" length="300.00" shape="-300,0 0,0" />
+    </edge>
+    
+    <edge id="CtoW" from="center" to="west" priority="1">
+        <lane id="CtoW_0" index="0" speed="13.89" length="300.00" shape="0,0 -300,0" />
+    </edge>
+
+    <!-- Connections directes entre les bords -->
+    <connection from="NtoC" to="CtoS" fromLane="0" toLane="0" dir="s" state="o"/>
+    <connection from="StoC" to="CtoN" fromLane="0" toLane="0" dir="s" state="o"/>
+    <connection from="EtoC" to="CtoW" fromLane="0" toLane="0" dir="s" state="o"/>
+    <connection from="WtoC" to="CtoE" fromLane="0" toLane="0" dir="s" state="o"/>
+
+    <!-- Traffic Light Logic -->
+    <tlLogic id="center" type="static" programID="0" offset="0">
+        <phase duration="31" state="GGrr"/>
+        <phase duration="4" state="yyrr"/>
+        <phase duration="31" state="rrGG"/>
+        <phase duration="4" state="rryy"/>
+    </tlLogic>
+
+</net>

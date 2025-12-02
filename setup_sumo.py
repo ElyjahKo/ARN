@@ -1,4 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+"""
+setup_complet.py - Génère TOUS les fichiers nécessaires pour SUMO
+Lance CE fichier en PREMIER avant tout !
+"""
+import os
+
+def create_network():
+    """Crée mon_reseau.net.xml"""
+    content = """<?xml version="1.0" encoding="UTF-8"?>
 <net version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-500.00,-500.00,500.00,500.00"/>
@@ -82,4 +90,108 @@
         <phase duration="4"  state="rryy"/>
     </tlLogic>
 
-</net>
+</net>"""
+    
+    with open("mon_reseau.net.xml", "w", encoding="utf-8") as f:
+        f.write(content)
+    print("✅ mon_reseau.net.xml créé")
+
+
+def create_routes():
+    """Crée mes_routes.rou.xml"""
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+    <!-- Vehicle Types -->
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5.0" minGap="2.5" maxSpeed="13.89" guiShape="passenger" color="1,1,0"/>
+    <vType id="bus" accel="1.2" decel="4.5" sigma="0.5" length="12.0" minGap="3.0" maxSpeed="12.0" guiShape="bus" color="0,1,0"/>
+    <vType id="ambulance" accel="3.0" decel="5.0" sigma="0.3" length="6.0" minGap="2.0" maxSpeed="20.0" guiShape="emergency" color="1,0,0"/>
+
+    <!-- Routes -->
+    <route id="north_south" edges="NtoC CtoS"/>
+    <route id="south_north" edges="StoC CtoN"/>
+    <route id="east_west" edges="EtoC CtoW"/>
+    <route id="west_east" edges="WtoC CtoE"/>
+
+    <!-- Traffic Flows -->
+    <flow id="flow_ns_cars" type="car" route="north_south" begin="0" end="3600" vehsPerHour="300"/>
+    <flow id="flow_sn_cars" type="car" route="south_north" begin="0" end="3600" vehsPerHour="300"/>
+    <flow id="flow_ew_cars" type="car" route="east_west" begin="0" end="3600" vehsPerHour="300"/>
+    <flow id="flow_we_cars" type="car" route="west_east" begin="0" end="3600" vehsPerHour="300"/>
+
+    <!-- Buses -->
+    <flow id="flow_ns_bus" type="bus" route="north_south" begin="0" end="3600" vehsPerHour="30"/>
+    <flow id="flow_ew_bus" type="bus" route="east_west" begin="0" end="3600" vehsPerHour="30"/>
+
+    <!-- Emergency Vehicles -->
+    <vehicle id="ambulance_1" type="ambulance" route="south_north" depart="10" color="1,0,0"/>
+    <vehicle id="ambulance_2" type="ambulance" route="east_west" depart="150" color="1,0,0"/>
+    <vehicle id="ambulance_3" type="ambulance" route="north_south" depart="300" color="1,0,0"/>
+    
+</routes>"""
+    
+    with open("mes_routes.rou.xml", "w", encoding="utf-8") as f:
+        f.write(content)
+    print("✅ mes_routes.rou.xml créé")
+
+
+def create_config():
+    """Crée mon_config.sumocfg"""
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="mon_reseau.net.xml"/>
+        <route-files value="mes_routes.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+        <step-length value="1"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <max-depart-delay value="1"/>
+        <ignore-route-errors value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="false"/>
+        <no-step-log value="true"/>
+        <no-warnings value="false"/>
+    </report>
+
+</configuration>"""
+    
+    with open("mon_config.sumocfg", "w", encoding="utf-8") as f:
+        f.write(content)
+    print("✅ mon_config.sumocfg créé")
+
+
+def main():
+    print("\n" + "="*70)
+    print("🚀 CRÉATION DES FICHIERS SUMO")
+    print("="*70 + "\n")
+    
+    create_network()
+    create_routes()
+    create_config()
+    
+    print("\n" + "="*70)
+    print("✅ TOUS LES FICHIERS SONT CRÉÉS !")
+    print("="*70)
+    print("\n📋 Fichiers générés:")
+    print("  ✓ mon_reseau.net.xml")
+    print("  ✓ mes_routes.rou.xml")
+    print("  ✓ mon_config.sumocfg")
+    print("\n🎯 Prochaine étape:")
+    print("  python arn_sumo_integration.py")
+    print("\n💡 Pour tester SUMO seul:")
+    print("  sumo-gui -c mon_config.sumocfg")
+    print("="*70 + "\n")
+
+
+if __name__ == "__main__":
+    main()
