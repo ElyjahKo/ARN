@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-500.00,-500.00,500.00,500.00" origBoundary="-500.00,-500.00,500.00,500.00"/>
+
+    <!-- Nodes -->
+    <junction id="center" x="0.00" y="0.00" type="traffic_light"/>
+    <junction id="north" x="0.00" y="300.00" type="priority"/>
+    <junction id="south" x="0.00" y="-300.00" type="priority"/>
+    <junction id="east"  x="300.00" y="0.00" type="priority"/>
+    <junction id="west"  x="-300.00" y="0.00" type="priority"/>
+
+    <!-- Edges -->
+    <edge id="NtoC" from="north" to="center"/>
+    <edge id="CtoN" from="center" to="north"/>
+    <edge id="StoC" from="south" to="center"/>
+    <edge id="CtoS" from="center" to="south"/>
+    <edge id="EtoC" from="east"  to="center"/>
+    <edge id="CtoE" from="center" to="east"/>
+    <edge id="WtoC" from="west"  to="center"/>
+    <edge id="CtoW" from="center" to="west"/>
+
+</net>
